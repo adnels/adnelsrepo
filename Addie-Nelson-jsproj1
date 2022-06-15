@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <form action=''>
+    <label for='uid'>User ID:</label><br>
+    <input type='text' id='uid' name='uid'><br>
+    <label for='fname'>First Name:</label><br>
+    <input type='text' id='fname' name='fname'><br>
+    <label for='lname'>Last Name:</label><br>
+    <input type='text' id='lname' name='lname'><br>
+    <label for='birthday'>Birthday:</label><br>
+    <input type='date' id='birthday' name='birthday'><br><br>
+    <input type='button' onclick='submitform()' value='Accept'>
+    </form><br>
+    <span id='message'></span><br><br>
+    <p id='xloop'></p>
+</body>
+
+<script>
+    var re = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
+    message=document.getElementById('message');
+    function submitform()
+    {
+      uid=document.getElementById('uid').value
+      fname=document.getElementById('fname').value
+      lname=document.getElementById('lname').value
+      birthday=document.getElementById('birthday').value
+      if(!re.test(uid))
+      {
+        message.innerHTML='Invalid user ID!'
+      }
+      else if(fname==undefined || fname=='')
+      {
+        message.innerHTML='Invalid first name!'
+      }
+      else if(lname==undefined || lname=='')
+      {
+        message.innerHTML='Invalid last name!'
+      }
+      else if(birthday==undefined || birthday=='')
+      {
+        message.innerHTML='Invalid birthday!'
+      }
+      else{
+        days= dateDiff();
+        if(days< (365*18))
+        {
+          message.innerHTML='You are probably not old enough to take this class!'
+        }
+        else
+        {
+          message.innerHTML=fname+' '+lname+' you have been breathing for '+days+' days!'
+        }
+      }
+    }
+    function dateDiff() {
+      birthday=document.getElementById('birthday').value
+      const date1 = new Date(birthday);
+      const date2 = new Date();
+      const diffTime = Math.abs(date2 - date1);
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+      return diffDays;
+    }
+    let str = '';
+    for (let i = 1; i <= 20; i++)
+    {
+    str = str.padStart(i,'X');
+    document.write(str.padStart(i,'X') + '<br>');
+    }
+</script>
+</html>
